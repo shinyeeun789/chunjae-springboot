@@ -3,9 +3,9 @@ package com.chunjae.test07.entity;
 import lombok.Data;
 
 @Data
-public class User_role {
+public class UserRole {
 
-    private int user_id;
-    private int role_id;
+    private int userId;
+    private int roleId;
 
 }
