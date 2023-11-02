@@ -1,4 +1,4 @@
-package com.chunjae.test03.exception;
+package com.chunjae.test06.exception;
 
 public class NoSuchDataException extends RuntimeException {
     public NoSuchDataException(String message) {

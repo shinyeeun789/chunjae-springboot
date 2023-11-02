@@ -1,4 +1,4 @@
-package com.chunjae.test03.entity;
+package com.chunjae.test06.entity;
 
 import lombok.Data;
 
