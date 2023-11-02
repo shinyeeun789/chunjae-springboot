@@ -1,0 +1,16 @@
+2023-11-01 11:17:48.844 INFO  [restartedMain] [com.chunjae.test05.Test05Application] - Starting Test05Application using Java 17.0.7 with PID 15300 (D:\shin\springboot\test05\build\classes\java\main started by db400tea in D:\shin\springboot\test05)
+2023-11-01 11:17:48.846 INFO  [restartedMain] [com.chunjae.test05.Test05Application] - No active profile set, falling back to 1 default profile: "default"
+2023-11-01 11:17:48.879 INFO  [restartedMain] [o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor] - Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2023-11-01 11:17:48.879 INFO  [restartedMain] [o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor] - For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2023-11-01 11:17:49.486 INFO  [restartedMain] [o.s.b.w.embedded.tomcat.TomcatWebServer] - Tomcat initialized with port(s): 8085 (http)
+2023-11-01 11:17:49.491 INFO  [restartedMain] [o.apache.coyote.http11.Http11NioProtocol] - Initializing ProtocolHandler ["http-nio-8085"]
+2023-11-01 11:17:49.492 INFO  [restartedMain] [o.apache.catalina.core.StandardService] - Starting service [Tomcat]
+2023-11-01 11:17:49.492 INFO  [restartedMain] [org.apache.catalina.core.StandardEngine] - Starting Servlet engine: [Apache Tomcat/10.1.15]
+2023-11-01 11:17:49.569 INFO  [restartedMain] [org.apache.jasper.servlet.TldScanner] - At least one JAR was scanned for TLDs yet contained no TLDs. Enable debug logging for this logger for a complete list of JARs that were scanned but no TLDs were found in them. Skipping unneeded JARs during scanning can improve startup time and JSP compilation time.
+2023-11-01 11:17:49.573 INFO  [restartedMain] [o.a.c.c.C.[Tomcat].[localhost].[/]] - Initializing Spring embedded WebApplicationContext
+2023-11-01 11:17:49.573 INFO  [restartedMain] [o.s.b.w.s.c.ServletWebServerApplicationContext] - Root WebApplicationContext: initialization completed in 692 ms
+2023-11-01 11:17:49.779 INFO  [restartedMain] [o.s.b.a.w.s.WelcomePageHandlerMapping] - Adding welcome page template: index
+2023-11-01 11:17:49.863 INFO  [restartedMain] [o.s.b.d.a.OptionalLiveReloadServer] - LiveReload server is running on port 35729
+2023-11-01 11:17:49.871 INFO  [restartedMain] [o.apache.coyote.http11.Http11NioProtocol] - Starting ProtocolHandler ["http-nio-8085"]
+2023-11-01 11:17:49.884 INFO  [restartedMain] [o.s.b.w.embedded.tomcat.TomcatWebServer] - Tomcat started on port(s): 8085 (http) with context path ''
+2023-11-01 11:17:49.889 INFO  [restartedMain] [com.chunjae.test05.Test05Application] - Started Test05Application in 1.247 seconds (process running for 1.649)

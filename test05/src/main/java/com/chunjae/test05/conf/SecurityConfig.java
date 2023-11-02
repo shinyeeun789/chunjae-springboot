@@ -1,7 +1,7 @@
-package com.chunjae.test03.conf;
+package com.chunjae.test05.conf;
 
-import com.chunjae.test03.biz.UserService;
-import com.chunjae.test03.biz.UserServiceImpl;
+import com.chunjae.test05.biz.UserService;
+import com.chunjae.test05.biz.UserServiceImpl;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -13,16 +13,19 @@ import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import java.util.Arrays;
+
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig {
     @Bean
     public UserService userService() { return new UserServiceImpl();  }
+
     //passwordEncoder 빈 등록
     @Bean
     public BCryptPasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
+
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         //공통 접근 설정
@@ -33,6 +36,9 @@ public class SecurityConfig {
                 .requestMatchers(new AntPathRequestMatcher("/signup")).permitAll()
                 .requestMatchers(new AntPathRequestMatcher("/idCheck")).permitAll()
                 .requestMatchers(new AntPathRequestMatcher("/emailCheck")).permitAll()
+                .requestMatchers(new AntPathRequestMatcher("/admin/**")).hasRole("ADMIN")
+                .requestMatchers(new AntPathRequestMatcher("/emp/**")).hasAnyRole("EMP", "ADMIN")
+                .requestMatchers(new AntPathRequestMatcher("/user/**")).hasAnyRole("USER", "EMP", "ADMIN")
                 .anyRequest().authenticated());
         //로그인 설정
         http.formLogin()
@@ -50,6 +56,7 @@ public class SecurityConfig {
         //http.csrf().csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse());
         return http.build();
     }
+
     @Bean
     CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
@@ -61,4 +68,5 @@ public class SecurityConfig {
         source.registerCorsConfiguration("/**", configuration);
         return source;
     }
+
 }
