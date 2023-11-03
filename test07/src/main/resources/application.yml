@@ -26,4 +26,4 @@ mybatis:
   type-aliases-package: com.chunjae.test07.entity
   mapper-locations: mappers/**/*.xml
 logging:
-  config: classpath:/logback.xml
+  config: classpath:logback.xml

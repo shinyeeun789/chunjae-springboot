@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" th:href="@{/images/logo.png}">     <!-- 파비콘 생성 -->
+<!--    <link rel="stylesheet" href="/static/css/pure-min.css">-->
+<!--    <link rel="stylesheet" href="/static/css/grids-reponsive-min.css">-->
+<!--    <link rel="stylesheet" href="/static/css/styles.css">-->
+    <title> 메인 </title>
+</head>
+<body>
+    <h1> 메인 페이지 </h1>
+    <p> 표현법1 :
+        <span th:text="${attrName}"></span>
+    </p>
+    <p> 표현법2 :
+        <span> [[${attrName}]] </span>
+    </p>
+
+    <hr>
+
+    <h3> 객체 출력하기 </h3>
+    <ul>
+        <li> 이름 : <span th:text="${human.name}"></span></li>
+        <li> 나이 : <span> [[${human.age}]] </span></li>
+    </ul>
+
+    <hr>
+
+    <h3> 객체 리스트 출력하기 </h3>
+    <ul>
+        <li th:each="h : ${hList}">
+            <span th:text="${h.name}"></span> :
+            <span th:text="${h.age}"></span>
+        </li>
+    </ul>
+    <br>
+    <table>
+        <thead>
+        <tr>
+            <th> 이름 </th>
+            <th> 나이 </th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="h : ${hList}">
+            <td th:text="${h.name}"></td>
+            <td th:text="${h.age}"></td>
+        </tr>
+        </tbody>
+    </table>
+
+    <br>
+<!--    <img src="/images/dog.png" alt="스프링 이미지">-->
+    <img th:src="@{/images/dog.png}" alt="스프링 이미지">
+    <br>
+
+    <br>
+    <!-- a 태그는 보안 때문에 제대로 동작하지 않을 가능성이 있기 때문에 form 태그 안에 button을 넣어서 제대로 동작하도록 만들 수 있음 -->
+    <a th:href="@{/login}"> 로그인 </a>
+    <br>
+    <form th:action="@{/login}" method="get">
+        <button type="submit"> 로그인 </button>
+    </form>
+</body>
+</html>
