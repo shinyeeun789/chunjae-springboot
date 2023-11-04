@@ -27,13 +27,13 @@ CREATE TABLE euser(
 	CONSTRAINT key_name UNIQUE(name)
 );
 
-UPDATE euser SET PASSWORD='$2a$10$KXY.EhEskta7wG/HvMSeZ.CQ4FuGQZOmaHTL2eZPnidD6AUvc.rUS'
-
 -- 회원 테이블 더미 데이터
 INSERT INTO euser VALUES(DEFAULT, 'admin', '1234', '관리자', 'admin@edumon.com', NULL, '010-1234-5678', DEFAULT, DEFAULT, DEFAULT);
 INSERT INTO euser VALUES(DEFAULT, 'test1', '1234', '테스트', 'test1@edumon.com', NULL, '010-2034-5039', DEFAULT, DEFAULT, DEFAULT);
-INSERT INTO euser VALUES(DEFAULT, 'kim', '1234', '테스트', 'kim@edumon.com', NULL, '010-5487-2223', DEFAULT, DEFAULT, DEFAULT);
-INSERT INTO euser VALUES(DEFAULT, 'lee', '1234', '테스트', 'lee@edumon.com', NULL, '010-7856-6654', DEFAULT, DEFAULT, DEFAULT);
+INSERT INTO euser VALUES(DEFAULT, 'kim', '1234', '김이름', 'kim@edumon.com', NULL, '010-5487-2223', DEFAULT, DEFAULT, DEFAULT);
+INSERT INTO euser VALUES(DEFAULT, 'lee', '1234', '이이름', 'lee@edumon.com', NULL, '010-7856-6654', DEFAULT, DEFAULT, DEFAULT);
+
+UPDATE euser SET PASSWORD='$2a$10$KXY.EhEskta7wG/HvMSeZ.CQ4FuGQZOmaHTL2eZPnidD6AUvc.rUS'
 
 COMMIT;
 

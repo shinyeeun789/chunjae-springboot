@@ -25,7 +25,7 @@
                     <input type="text" class="form-control" id="name" name="name" placeholder="아이디를 입력해주세요" autocomplete="off" required>
                     <label for="name"> ID </label>
                 </div>
-                <button type="button" class="btn btn-primary" id="idCheckBtn"> 아이디 중복 체크 </button>
+                <button type="button" class="btn btn-primary" id="idCheckBtn"> 중복체크 </button>
                 <input type="hidden" name="idCheck" id="idCheck" value="false">
             </div>
             <div id="msg" class="mb-2"></div>
@@ -60,7 +60,7 @@
                 <label for="tel">tel</label>
             </div>
 
-            <button class="btn btn-primary w-100 py-2 mt-1" type="submit"> 회원가입 </button>
+            <button class="btn btn-primary w-100 py-2 mt-4" type="submit"> 회원가입 </button>
             <p class="d-flex justify-content-center mt-3"> 이미 회원이신가요? &nbsp; <a href="${path}/login" class="text-secondary"> 로그인하기 </a></p>
         </form>
         <script>
@@ -128,22 +128,24 @@
                         }
                     });
                 });
-                function joinConfirm(f){
-                    if(f.password.value!=f.password2.value){
-                        alert("비밀번호와 비밀번호 확인이 서로 다릅니다.");
-                        f.password.focus();
-                        return false;
-                    }
-                    if(f.idCheck.value!="true"){
-                        alert("아이디 중복 체크를 하지 않으셨습니다.");
-                        return false;
-                    }
-                    if(f.emailCheck.value!="true"){
-                        alert("아이디 중복 체크를 하지 않으셨습니다.");
-                        return false;
-                    }
-                }
             });
+        </script>
+        <script>
+            function joinConfirm(f){
+                if(f.password.value!=f.password2.value){
+                    alert("비밀번호와 비밀번호 확인이 서로 다릅니다.");
+                    f.password.focus();
+                    return false;
+                }
+                if(f.idCheck.value!="true"){
+                    alert("아이디 중복 체크를 하지 않으셨습니다.");
+                    return false;
+                }
+                if(f.emailCheck.value!="true"){
+                    alert("아이디 중복 체크를 하지 않으셨습니다.");
+                    return false;
+                }
+            }
         </script>
     </main>
 </div>
