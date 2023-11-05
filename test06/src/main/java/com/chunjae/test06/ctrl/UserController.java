@@ -12,6 +12,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
 
@@ -66,7 +67,7 @@ public class UserController {
     //중복 id 검증(Ajax)
     @PostMapping("/idCheck")
     @ResponseBody
-    public boolean idCheckAjax(@RequestBody Euser test){
+    public boolean idCheckAjax(@RequestBody Euser test) throws Exception {
         logger.info("**************** name :"+test.getName());
         boolean result = false;
         Euser user = userService.getByName(test.getName());
@@ -81,13 +82,43 @@ public class UserController {
     //중복 이메일 검증(Ajax)
     @PostMapping("/emailCheck")
     @ResponseBody
-    public boolean emailCheckAjax(@RequestParam("email") String email){
+    public boolean emailCheckAjax(@RequestParam("email") String email) throws Exception {
         Euser user = userService.getByEmail(email);
         if(user!=null){
             return false;
         } else {
             return true;
         }
+    }
+
+    @GetMapping("/mypage")
+    public String mypage(@RequestParam long id, Model model) throws Exception {
+        Euser user = userService.getUserById(id);
+        model.addAttribute("user", user);
+        return "/user/mypage";
+    }
+
+    @GetMapping("/userEdit")
+    public String userEditForm(@RequestParam long id, Model model) throws Exception {
+        Euser user = userService.getUserById(id);
+        model.addAttribute("user", user);
+        return "/user/userEdit";
+    }
+
+    @PostMapping("/userEdit")
+    public String userEdit(Euser user, RedirectAttributes rttr) throws Exception {
+        Euser beforeUser = userService.getUser(user.getName());
+        if(user.getPassword() == null || user.getPassword().equals("")) {
+            user.setPassword(beforeUser.getPassword());
+        }
+
+        int result = userService.updateUser(user);
+        if(result > 0) {
+            rttr.addFlashAttribute("msg", "개인정보를 변경하였습니다.");
+        } else {
+            rttr.addFlashAttribute("msg", "개인정보 변경에 실패했습니다. 잠시 후 다시 시도해주세요");
+        }
+        return "redirect:mypage?id="+beforeUser.getId();
     }
 
 }

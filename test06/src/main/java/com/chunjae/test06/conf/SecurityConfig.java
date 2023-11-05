@@ -1,5 +1,7 @@
 package com.chunjae.test06.conf;
 
+import com.chunjae.test06.biz.FreeService;
+import com.chunjae.test06.biz.FreeServiceImpl;
 import org.springframework.boot.web.servlet.ServletListenerRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -24,6 +26,9 @@ public class SecurityConfig {
 
     @Bean
     public UserService userService() { return new UserServiceImpl();  }
+
+    @Bean
+    public FreeService freeService() { return new FreeServiceImpl(); }
 
     @Bean
     public BCryptPasswordEncoder passwordEncoder() {

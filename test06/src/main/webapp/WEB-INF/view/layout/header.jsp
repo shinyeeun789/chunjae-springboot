@@ -6,7 +6,7 @@
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <sec:authorize access="isAuthenticated()">
     <!-- principal 변수에 로그인 여부 저장 -->
-    <sec:authentication property="principal" var="principal" />
+    <sec:authentication property="principal" var="pcp" />
 </sec:authorize>
 
 <header class="p-3 text-bg-dark">
@@ -18,22 +18,23 @@
             </a>
 
             <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0" style="margin-left: 35px;">
-                <li><a href="#" class="nav-link px-2 text-white"> 게시판 </a></li>
+                <li><a href="${path}/free/list" class="nav-link px-2 text-white"> 게시판 </a></li>
                 <li><a href="#" class="nav-link px-2 text-white"> Pricing </a></li>
                 <li><a href="#" class="nav-link px-2 text-white"> FAQs </a></li>
                 <li><a href="#" class="nav-link px-2 text-white"> About </a></li>
             </ul>
 
             <div class="text-end">
-                <c:if test="${empty principal}">
+                <c:if test="${empty pcp}">
                     <a href="${path}/join" class="btn btn-outline-light"> 회원가입 </a>
                     <a href="${path}/login" class="btn btn-light"> 로그인 </a>
                 </c:if>
-                <c:if test="${not empty principal}">
-                    <form action="/logout" method="post">
+                <c:if test="${not empty pcp}">
+                    <form action="/logout" method="post" class="d-inline">
                         <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
                         <button type="submit" class="btn btn-outline-light"> 로그아웃 </button>
                     </form>
+                    <a href="${path}/mypage?id=${pcp}" class="btn btn-light"> 마이페이지 </a>
                 </c:if>
             </div>
         </div>
