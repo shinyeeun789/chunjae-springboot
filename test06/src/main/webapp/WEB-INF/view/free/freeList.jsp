@@ -26,6 +26,17 @@
 <jsp:include page="../layout/header.jsp" />
 
 <div class="container pt-5 pb-5">
+    <div class="d-flex justify-content-end">
+        <form action="${path}/free/list" class="d-flex justify-content-end" style="width: 40%">
+            <select name="type" id="type" class="form-select w-25">
+                <option value="T" id="T"> 제목 </option>
+                <option value="C" id="C"> 내용 </option>
+                <option value="W" id="W"> 작성자 </option>
+            </select>
+            <input type="text" name="keyword" id="keyword" class="form-control" autocomplete="off" value="${page.keyword}">
+            <input type="submit" class="btn btn-dark" value="검색">
+        </form>
+    </div>
     <table class="table table-hover text-center mt-5 mb-5">
         <thead>
         <tr>
@@ -40,7 +51,9 @@
         <c:forEach var="free" items="${freeList}">
             <tr onclick="javascript: location.href='${path}/free/detail?fno=${free.fno}&id=${principal}'" style="cursor: pointer">
                 <td> ${free.fno} </td>
-                <td class="text-left"> ${free.title} </td>
+                <td style="width: 450px;">
+                    <div style="width: 450px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; text-align: left"> ${free.title} </div>
+                </td>
                 <td> ${free.name} </td>
                 <td>
                     <fmt:parseDate var="date" value="${free.resdate}" pattern="yyyy-MM-dd HH:mm:ss"/>
@@ -57,11 +70,53 @@
         </tbody>
     </table>
 
+    <!-- Paging -->
+    <nav aria-label="Page navigation example" class="mt-25 mb-30">
+        <ul class="pagination justify-content-center">
+            <c:if test="${page.curPageNum > 5}">
+                <li class="page-item">
+                    <a class="page-link" href="${path}/free/list?page=${page.blockStartNum - 1}" aria-label="Previous">
+                        <span aria-hidden="true"><<</span>
+                    </a>
+                </li>
+            </c:if>
+            <c:forEach var="i" begin="${page.blockStartNum}" end="${page.blockLastNum}">
+                <c:choose>
+                    <c:when test="${i == page.curPageNum}">
+                        <li class="page-item active" aria-current="page">
+                            <a class="page-link" href="${path}/free/list?page=${i}">${i}</a>
+                        </li>
+                    </c:when>
+                    <c:otherwise>
+                        <li class="page-item">
+                            <a class="page-link" href="${path}/free/list?page=${i}">${i}</a>
+                        </li>
+                    </c:otherwise>
+                </c:choose>
+            </c:forEach>
+            <c:if test="${page.blockLastNum < page.totalPageCount}">
+                <li class="page-item">
+                    <a class="page-link" href="${path}/free/list?page=${page.blockLastNum + 1}" aria-label="Next">
+                        <span aria-hidden="true">>></span>
+                    </a>
+                </li>
+            </c:if>
+        </ul>
+    </nav>
+
     <div class="d-flex justify-content-end">
         <a href="${path}/free/insert" class="btn btn-dark mt-3"> 글쓰기 </a>
     </div>
 </div>
 
 <jsp:include page="../layout/footer.jsp" />
+
+<c:if test="${not empty page.type}">
+    <script>
+        $(document).ready(() => {
+            $("#${page.type}").attr("selected", true);
+        });
+    </script>
+</c:if>
 </body>
 </html>

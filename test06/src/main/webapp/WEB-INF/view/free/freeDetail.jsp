@@ -22,6 +22,15 @@
 <jsp:include page="../layout/header.jsp" />
 
 <div class="w-50 m-auto pt-5 pb-5">
+    <div class="d-flex justify-content-end">
+        <div class="btn-group">
+            <c:if test="${isAuthor}">
+                <a href="${path}/free/edit?fno=${detail.fno}" class="btn btn-outline-dark"> 수정 </a>
+                <a href="${path}/free/delete?fno=${detail.fno}" class="btn btn-outline-dark"> 삭제 </a>
+            </c:if>
+            <a href="${path}/free/list" class="btn btn-dark"> 목록 </a>
+        </div>
+    </div>
     <div class="row mt-5 mb-5">
         <div class="col-12">
             <label for="title"> 제목 </label>
@@ -36,19 +45,64 @@
             <input type="text" class="form-control" id="resdate" value="${detail.resdate}" readonly>
         </div>
         <div class="col-12 mt-3">
-            <textarea class="form-control" name="content" id="content" cols="30" rows="10" readonly>${detail.content}</textarea>
+            <textarea class="form-control" name="freeContent" id="freeContent" cols="30" rows="10" readonly>${detail.content}</textarea>
         </div>
     </div>
-    <div class="d-flex justify-content-end">
-        <div class="btn-group">
-            <c:if test="${isAuthor}">
-                <a href="${path}/free/edit?fno=${detail.fno}" class="btn btn-outline-dark"> 수정 </a>
-                <a href="${path}/free/delete?fno=${detail.fno}" class="btn btn-outline-dark"> 삭제 </a>
-            </c:if>
-            <a href="${path}/free/list" class="btn btn-dark"> 목록 </a>
-        </div>
+    <div class="d-flex justify-content-between">
+        <textarea cols="30" rows="3" id="content" name="content" class="form-control" style="resize: none"></textarea>
+        <input type="button" id="addComment" class="btn btn-dark" value="전송">
+    </div>
+    <div>
+        <c:forEach var="comment" items="${commentList}">
+            <div class="mt-4">
+                <div class="d-flex justify-content-between align-items-baseline">
+                    <div class="d-flex justify-content-between align-items-baseline">
+                        <h4 style="margin-right: 10px"> ${comment.name} </h4> · <p style="margin-left: 10px"> ${comment.resdate} </p>
+                    </div>
+                    <button class="border-0 bg-body" id="plusRecommend_${comment.cno}" value="${comment.cno}"> <i class="fa-regular fa-thumbs-up fa-xl"></i> ${comment.recommend} </button>
+                </div>
+                <p> ${comment.content} </p>
+            </div>
+        </c:forEach>
     </div>
 </div>
+
+<script>
+    $(document).ready(() => {
+        $("#addComment").on("click", function() {
+            $.ajax({
+                url: "${path}/freeComment/insert",
+                type:"post",
+                data:JSON.stringify({ fno : "${detail.fno}", content : $("#content").val() }),
+                dataType:"json",
+                contentType: "application/json",
+                success: function(result) {
+                    console.log(result);
+                    console.log("성공");
+                },
+                error: function(err) {
+                    console.log(err);
+                }
+            });
+        });
+
+        $(document).on("click", "button[id^='plusRecommend']", function() {
+            $.ajax({
+                url: "${path}/freeComment/plusRecommend",
+                type:"post",
+                data:JSON.stringify({ cno : $(this).val() }),
+                dataType:"json",
+                contentType: "application/json",
+                success: function(result) {
+                    $("#plusRecommend_" + result.cno).html('<i class="fa-regular fa-thumbs-up fa-xl"></i> ' + result.recommend);
+                },
+                error: function(err) {
+                    console.log(err);
+                }
+            });
+        })
+    });
+</script>
 
 <jsp:include page="../layout/footer.jsp" />
 </body>

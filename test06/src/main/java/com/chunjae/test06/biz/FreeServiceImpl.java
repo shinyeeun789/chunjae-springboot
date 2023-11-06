@@ -2,6 +2,7 @@ package com.chunjae.test06.biz;
 
 import com.chunjae.test06.entity.Free;
 import com.chunjae.test06.per.FreeMapper;
+import com.chunjae.test06.util.Page;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
@@ -12,8 +13,8 @@ public class FreeServiceImpl implements FreeService {
     private FreeMapper freeMapper;
 
     @Override
-    public List<Free> freeList() {
-        return freeMapper.freeList();
+    public List<Free> freeList(Page page) {
+        return freeMapper.freeList(page);
     }
 
     @Override
@@ -46,4 +47,8 @@ public class FreeServiceImpl implements FreeService {
         return freeMapper.updateRecommend(fno);
     }
 
+    @Override
+    public int totalCnt() {
+        return freeMapper.totalCnt();
+    }
 }

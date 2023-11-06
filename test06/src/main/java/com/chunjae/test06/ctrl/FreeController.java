@@ -1,9 +1,12 @@
 package com.chunjae.test06.ctrl;
 
+import com.chunjae.test06.biz.FreeCommentService;
 import com.chunjae.test06.biz.FreeService;
 import com.chunjae.test06.biz.UserService;
 import com.chunjae.test06.entity.Euser;
 import com.chunjae.test06.entity.Free;
+import com.chunjae.test06.entity.FreeComment;
+import com.chunjae.test06.util.Page;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -27,12 +30,22 @@ public class FreeController {
     private FreeService freeService;
 
     @Autowired
+    private FreeCommentService freeCommentService;
+
+    @Autowired
     private UserService userService;
 
     @RequestMapping(value = "list", method = RequestMethod.GET)
-    public String freeList(Model model) throws Exception {
-        List<Free> freeList = freeService.freeList();
+    public String freeList(HttpServletRequest request, Model model) throws Exception {
+        int curPage = request.getParameter("page") != null ? Integer.parseInt(request.getParameter("page")) : 1;
+        String type = request.getParameter("type");
+        String keyword = request.getParameter("keyword");
+        Page page = new Page(curPage, type, keyword);
+        page.makePage(freeService.totalCnt());
+
+        List<Free> freeList = freeService.freeList(page);
         model.addAttribute("freeList", freeList);
+        model.addAttribute("page", page);
         return "/free/freeList";
     }
 
@@ -81,6 +94,13 @@ public class FreeController {
         Free free = freeService.getFree(fno);
         model.addAttribute("detail", free);
         model.addAttribute("isAuthor", user.getName().equals(free.getName()));
+
+        int curPage = request.getParameter("page") != null ? Integer.parseInt(request.getParameter("page")) : 1;
+        Page page = new Page(curPage);
+        page.makePage(freeService.totalCnt());
+        List<FreeComment> commentList = freeCommentService.commentList(fno, page);
+        model.addAttribute("commentList", commentList);
+
         return "/free/freeDetail";
     }
 

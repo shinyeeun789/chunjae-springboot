@@ -39,11 +39,33 @@ COMMIT;
 
 SELECT * FROM euser;
 
+-- 게시판 테이블 생성
 CREATE TABLE free(
-	fno INT PRIMARY KEY,
+	fno INT PRIMARY KEY AUTO_INCREMENT,
 	name VARCHAR(20) NOT NULL,
 	title VARCHAR(50) NOT NULL,
 	content VARCHAR(2000) NOT NULL,
 	resdate TIMESTAMP DEFAULT CURRENT_TIME,
+	views INT DEFAULT 0,
 	recommend INT DEFAULT 0
 );
+
+-- 댓글 테이블 생성
+CREATE TABLE freeComment(
+	cno INT PRIMARY KEY AUTO_INCREMENT,
+	fno INT NOT NULL,
+	name VARCHAR(20) NOT NULL,
+	content VARCHAR(2000) NOT NULL,
+	resdate TIMESTAMP DEFAULT CURRENT_TIME,
+	recommend INT DEFAULT 0,
+	FOREIGN KEY (fno) REFERENCES free(fno) ON DELETE CASCADE
+);
+SELECT cno, fno, name, content, 
+case
+	when DATEDIFF(NOW(), resdate) > 0
+	then CONCAT(DATEDIFF(NOW(), resdate), '일 전')
+	when TIMESTAMPDIFF(HOUR, resdate, NOW()) > 0
+	then CONCAT(TIMESTAMPDIFF(HOUR, resdate, NOW()), '시간 전')
+	ELSE CONCAT(TIMESTAMPDIFF(MINUTE, resdate, NOW()), '분 전')
+END AS resdate, recommend
+FROM freeComment;

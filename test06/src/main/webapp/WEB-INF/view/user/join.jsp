@@ -108,7 +108,7 @@
                     }
                     var params = {	email : $("#email").val()	} //전송되어질 데이터를 객체로 묶음
                     $.ajax({
-                        url:"${path1 }/emailCheck",	//아이디가 전송되어질 곳
+                        url:"${path }/emailCheck",	//아이디가 전송되어질 곳
                         type:"post",		//전송방식
                         dataType:"json",	//데이터 반환 방식
                         data:params,		//전송방식이 post인 경우 객체로 묶어서 전송
