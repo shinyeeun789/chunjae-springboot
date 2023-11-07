@@ -4,10 +4,6 @@
 
 <!-- implementation 'org.springframework.security:spring-security-taglibs'로 불러옴 -->
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
-<sec:authorize access="isAuthenticated()">
-    <!-- principal 변수에 로그인 여부 저장 -->
-    <sec:authentication property="principal" var="pcp" />
-</sec:authorize>
 
 <header class="p-3 text-bg-dark">
     <div class="container">
@@ -25,17 +21,21 @@
             </ul>
 
             <div class="text-end">
-                <c:if test="${empty pcp}">
+                <sec:authorize access="isAnonymous()">
                     <a href="${path}/join" class="btn btn-outline-light"> 회원가입 </a>
                     <a href="${path}/login" class="btn btn-light"> 로그인 </a>
-                </c:if>
-                <c:if test="${not empty pcp}">
+                </sec:authorize>
+                <sec:authorize access="isAuthenticated()">
                     <form action="/logout" method="post" class="d-inline">
                         <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
                         <button type="submit" class="btn btn-outline-light"> 로그아웃 </button>
                     </form>
                     <a href="${path}/mypage?id=${pcp}" class="btn btn-light"> 마이페이지 </a>
-                </c:if>
+                </sec:authorize>
+
+                <sec:authorize access="hasRole('ADMIN')">
+                    <a href="${path}/admin" class="btn btn-light"> 관리자페이지 </a>
+                </sec:authorize>
             </div>
         </div>
     </div>

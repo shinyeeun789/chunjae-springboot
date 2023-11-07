@@ -32,13 +32,12 @@ public class AuthProvider implements AuthenticationProvider {
             List<GrantedAuthority> roles = new ArrayList<>();
             if(userVo.getLev().equals("ADMIN")){
                 roles.add(new SimpleGrantedAuthority("ADMIN")); // 권한 부여
-            } else if(userVo.getLev().equals("EMP")){
-                roles.add(new SimpleGrantedAuthority("EMP")); // 권한 부여
             } else {
                 roles.add(new SimpleGrantedAuthority("USER")); // 권한 부여
             }
             token = new UsernamePasswordAuthenticationToken(userVo.getId(), null, roles);
             // 인증된 user 정보를 담아 SecurityContextHolder에 저장되는 token
+
             return token;
         }
 

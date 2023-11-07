@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> 문자열 리스트 </title>
+</head>
+<body>
+    <h2> 문자열 리스트 </h2>
+    <ul th:each="name : ${names}">
+        <li th:text="${name}"></li>
+    </ul>
+
+    <hr>
+    <h2> 객체 </h2>
+    <div>
+        <p th:text="${sample.p1}"></p>
+        <p th:text="${sample.p2}"></p>
+        <p th:text="${sample.p3}"></p>
+    </div>
+</body>
+</html>
