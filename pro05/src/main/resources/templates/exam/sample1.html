@@ -7,8 +7,54 @@
 </head>
 <body>
     <h2> 문자열 리스트 </h2>
-    <ul th:each="name : ${names}">
+    <hr>
+    <div th:text="${names}"></div>
+    <hr>
+    <div>[[${names}]]</div>
+    <hr>
+    <ul th:each="name: ${names}">
         <li th:text="${name}"></li>
+    </ul>
+    <hr>
+    <ul>
+        <th:block th:each="name: ${names}">
+            <li th:text="${name}"></li>
+        </th:block>
+    </ul>
+    <hr>
+    <ul>
+        <li th:each="name: ${names}">[[${name}]]</li>
+    </ul>
+    <hr>
+    <ul>
+        <li th:each="name: ${names}" th:text="${name}"></li>
+    </ul>
+
+    <hr>
+    <h2> 홀수, 짝수 </h2>
+    <ul th:each="str, status : ${names}">
+        <li th:if="${status.odd}"> ODD - [[${str}]] </li>
+        <li th:unless="${status.odd}"> EVEN - [[${str}]] </li>
+    </ul>
+    <hr>
+    <ul th:each="str, status : ${names}">
+        <li th:if="${status.even}"> EVEN - [[${str}]] </li>
+        <li th:unless="${status.even}"> ODD - [[${str}]] </li>
+    </ul>
+    <hr>
+    <ul th:each="str, status : ${names}">
+        <li th:text="${status.odd} ? 'ODD - ' + ${str} : 'EVEN - ' + ${str}"></li>
+    </ul>
+    <hr>
+    <ul>
+        <li th:each="str, status : ${names}">
+            <!-- index : 0부터 시작, count : 1부터 시작 -->
+            <th:block th:switch="${status.index} % 3">
+                <span th:case="0"> 3의 배수 번째 : [[${str}]] </span>
+                <span th:case="1"> 3n + 1 : [[${str}]] </span>
+                <span th:case="2"> 3n + 2 : [[${str}]] </span>
+            </th:block>
+        </li>
     </ul>
 
     <hr>

@@ -7,11 +7,14 @@
 </head>
 <body>
     <h2> 메인 페이지 </h2>
-    <a th:href="@{/hello}"> Hello로 이동 </a>
+    <a th:href="@{/hello}"> Hello </a><br>
+    <a th:href="@{/hello2(name='김천재', age=28)}"> Hello2 </a><br>
+    <a th:href="@{/hello3(name='이천재', age=30)}"> Hello3 </a>
     <hr>
     <h2> 연습 페이지 </h2>
-    <a th:href="@{/ex/sample1}"> Sample1로 이동 </a><br>
-    <a th:href="@{/ex/sample2}"> Sample2로 이동 </a><br>
-    <a th:href="@{/ex/sample3}"> Sample3로 이동 </a>
+    <a th:href="@{/ex/sample1}"> Sample1 </a><br>
+    <a th:href="@{/ex/sample2}"> Sample2 </a><br>
+    <a th:href="@{/ex/sample3}"> Sample3 </a><br>
+    <a th:href="@{/ex/sample4}"> Sample4 </a>
 </body>
 </html>

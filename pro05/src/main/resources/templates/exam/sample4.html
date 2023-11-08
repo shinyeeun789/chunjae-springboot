@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> Using to Thymeleaf Layout </title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/purecss@3.0.0/build/pure-min.css" integrity="sha384-X38yfunGUhNzHpBaEBsWLO+A0HDYOQi8ufWDkZ0k9e0eXz/tH3II7uKZ9msv++Ls" crossorigin="anonymous">
+</head>
+<body>
+<header class="header" id="hd">
+    <div th:insert="~{layout/header :: header}" id="header"></div>
+<!--    <div th:insert="~{layout/header :: logo}" id="logo"></div>-->
+<!--    <div th:insert="~{layout/header :: gnb}" id="gnb"></div>-->
+</header>
+<div class="contents">
+    <h2> 샘플 페이지4 </h2>
+</div>
+<footer class="footer" id="ft">
+    <div th:insert="~{layout/footer :: ftLogo}" id="ftLogo"></div>
+    <div th:insert="~{layout/footer :: fnb}" id="fnb"></div>
+    <div th:insert="~{layout/footer :: copy}" id="copy"></div>
+</footer>
+</body>
+</html>
