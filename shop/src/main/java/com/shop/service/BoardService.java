@@ -1,10 +1,8 @@
-package com.shop.biz;
+package com.shop.service;
 
 import com.shop.dto.BoardDTO;
 import com.shop.dto.PageRequestDTO;
 import com.shop.dto.PageResponseDTO;
-
-import java.util.List;
 
 public interface BoardService {
 
